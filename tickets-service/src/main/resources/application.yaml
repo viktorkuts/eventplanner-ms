@@ -18,7 +18,7 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:customers-db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=YEAR
+    url: jdbc:h2:mem:tickets-db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=YEAR
     driver-class-name: org.h2.Driver
     username: user
     password: pwd
@@ -38,7 +38,7 @@ spring:
   datasource:
     hikari:
       initialization-fail-timeout: 60000
-    url: jdbc:postgresql://pg_cs/customers-db
+    url: jdbc:mysql://mysql_ts/tickets-db
     username: user
     password: pwd
 
@@ -50,5 +50,5 @@ spring:
         on-profile: docker
   sql:
     init:
-      platform: psql
+      platform: mysql
       mode: always

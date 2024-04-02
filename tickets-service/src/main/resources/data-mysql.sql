@@ -1,0 +1,1 @@
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (1, 'ticket1', '2020-01-01', true, 'user1');
