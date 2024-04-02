@@ -1,0 +1,5 @@
+include 'customers-service'
+include 'tickets-service'
+include 'venues-service'
+include 'events-service'
+include 'api-gateway'

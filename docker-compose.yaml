@@ -1,0 +1,148 @@
+services:
+  api-gateway:
+    build: api-gateway
+    hostname: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - customers-service
+      - tickets-service
+      - venues-service
+      - events-service
+  customers-service:
+    build: customers-service
+    hostname: customers-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      pg_cs:
+        condition: service_healthy
+  tickets-service:
+    build: tickets-service
+    hostname: tickets-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      mysql_ts:
+        condition: service_healthy
+  venues-service:
+    build: venues-service
+    hostname: venues-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      mysql_vs:
+        condition: service_healthy
+  events-service:
+    build: events-service
+    hostname: venues-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      pg_es:
+        condition: service_healthy
+  pg_cs:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=user
+      - PGUSER=user
+      - POSTGRES_PASSWORD=pwd
+      - POSTGRES_DB=customers-db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: "pg_isready -h pg_cs"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  pg_es:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=user
+      - PGUSER=user
+      - POSTGRES_PASSWORD=pwd
+      - POSTGRES_DB=events-db
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: "pg_isready -h pg_es"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  mysql_ts:
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpwd
+      - MYSQL_DATABASE=tickets-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pwd
+    volumes:
+      - ./data/mysql_ts:/var/lib/mysql_ts
+      - ./data/init.d:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-uuser",
+          "-ppwd",
+          "-h",
+          "localhost",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  mysql_vs:
+    image: mysql:8
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpwd
+      - MYSQL_DATABASE=venues-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pwd
+    volumes:
+      - ./data/mysql_vs:/var/lib/mysql_vs
+      - ./data/init.d:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-uuser",
+          "-ppwd",
+          "-h",
+          "localhost",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "9000:80"
+    depends_on:
+      - pg_cs
+      - pg_es
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpadmin
+    links:
+      - mysql_ts
+      - mysql_vs
+    restart: always
+    ports:
+      - "5013:80"
+    environment:
+      - PMA_ARBITRARY=1
