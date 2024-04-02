@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("customer")
 public class CustomerController {
     private CustomerServiceImpl customerService;
 
@@ -24,7 +24,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomers());
     }
 
-    @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerResponseModel> getCustomer(@PathVariable String customerId){
         return ResponseEntity.ok(customerService.getCustomer(customerId));
     }
@@ -34,12 +34,12 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.addCustomer(requestModel));
     }
 
-    @PostMapping(value = "/{customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerResponseModel> editCustomer(@PathVariable String customerId, @RequestBody CustomerRequestModel requestModel){
         return ResponseEntity.ok(customerService.editCustomer(customerId, requestModel));
     }
 
-    @DeleteMapping(value = "/{customerId}")
+    @DeleteMapping(value = "{customerId}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable String customerId){
         customerService.deleteCustomer(customerId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);

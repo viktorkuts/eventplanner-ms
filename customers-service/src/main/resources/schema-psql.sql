@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS customer_phonenumbers;
 
 CREATE TABLE customers (
 	id				SERIAL,
-	customerid		VARCHAR(50) UNIQUE,
+	customerid		VARCHAR(50),
+    customertype    VARCHAR(50) DEFAULT 'CUSTOMER',
 	firstname		VARCHAR(50),
 	lastname		VARCHAR(50),
 	emailaddress	VARCHAR(50),
