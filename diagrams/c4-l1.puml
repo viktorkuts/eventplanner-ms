@@ -1,0 +1,13 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Context.puml
+
+title Context Diagram for Event Planning System
+
+Person(person, "Customer", "A person who uses the ticketing system")
+System(eventPlanningSystem, "Event Planning System", "Allows customers to buy tickets for events and performers to plan events")
+Rel(person, eventPlanningSystem, "Buys tickets for events, transfers tickets to other customers.")
+
+Person(performer, "Performer", "A person who uses event system")
+Rel(performer, eventPlanningSystem, "Plans events, sells tickets for events.")
+'SHOW_LEGEND()
+@enduml

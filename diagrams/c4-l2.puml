@@ -1,0 +1,50 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+!include FONTAWESOME/users.puml
+
+AddElementTag("microService", $shape=EightSidedShape(), $bgColor="CornflowerBlue", $fontColor="white", $legendText="micro service\neight sided")
+AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $fontColor="white")
+AddRelTag(aggregate_root, $lineColor="red")
+
+LAYOUT_TOP_DOWN()
+'LAYOUT_WITH_LEGEND()
+SHOW_PERSON_OUTLINE()
+'HIDE_STEREOTYPE()
+
+title Container Diagram for Event Planning System
+Person(performer, "Performer", "A person who creates events")
+System_Boundary(eventplanner, "Event Planner"){
+    Container(webapp, "Web Application", "React", "Delivers static content and serves event planner single page application")
+    Container(singlepage_app, "Single Page Application", "React", "Provides performers with a user interface to plan events")
+    Container(apigateway, "API Gateway", "Java, Spring", "Provides event planning functionnality with REST/JSON HTTPS API", $tags="microService")
+    Container(eventsservice, "Events Service", "Java, Spring", "Provides event management functionnality via REST/JSON HTTPS API", $tags="microService")
+    Container(customersservice, "Customers Service", "Java, Spring", "Provides customer/performer management functionnality via REST/JSON HTTPS API", $tags="microService")
+    Container(venuesservice, "Venues Service", "Java, Spring", "Provides venue management functionnality via REST/JSON HTTPS API", $tags="microService")
+    Container(ticketsservice, "Tickets Service", "Java, Spring", "Provides ticket management functionnality via REST/JSON HTTPS API", $tags="microService")
+    ContainerDb(eventsdb, "Events Database", "PostgreSQL", "Stores event information", $tags = "storage")
+    ContainerDb(customersdb, "Customers Database", "PostgreSQL", "Stores customer information", $tags = "storage")
+    ContainerDb(venuesdb, "Venues Database", "mySQL 8", "Stores venue information", $tags = "storage")
+    ContainerDb(ticketsdb, "Tickets Database", "mySQL 8", "Stores ticket information", $tags = "storage")
+    Rel_R(webapp, singlepage_app, "Delivers to", "HTTPS")
+    Rel(performer, webapp, "Visits eventplanner.com", "HTTPS")
+    Rel_R(performer, singlepage_app, "Interacts with customer/event/ticket/venue", "HTTPS")
+    Rel(singlepage_app, apigateway, "Makes API Call", "HTTPS JSON REST")
+    Rel(apigateway, eventsservice, "Makes API Call", "HTTPS JSON REST")
+    Rel(apigateway, customersservice, "Makes API Call", "HTTPS JSON REST")
+    Rel(apigateway, venuesservice, "Makes API Call", "HTTPS JSON REST")
+    Rel(apigateway, ticketsservice, "Makes API Call", "HTTPS JSON REST")
+    Rel(eventsservice, customersservice, "Makes API Call", "HTTPS JSON REST", $tags = "aggregate_root")
+    Rel(eventsservice, venuesservice, "Makes API Call", "HTTPS JSON REST", $tags = "aggregate_root")
+    Rel(eventsservice, ticketsservice, "Makes API Call", "HTTPS JSON REST", $tags = "aggregate_root")
+    Rel_R(eventsservice, eventsdb, "Reads from and writes to", "JDBC")
+    Rel_D(customersservice, customersdb, "Reads from and writes to", "JDBC")
+    Rel_D(venuesservice, venuesdb, "Reads from and writes to", "JDBC")
+    Rel_D(ticketsservice, ticketsdb, "Reads from and writes to", "JDBC")
+}
+
+
+@enduml

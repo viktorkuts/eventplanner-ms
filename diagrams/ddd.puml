@@ -1,0 +1,162 @@
+@startuml
+
+!define ENTITY(name) entity name <<Entity>>
+!define VO(name) class name <<Value Object>>
+
+skinparam Rectangle {
+    BackgroundColor PapayaWhip
+}
+
+rectangle "Event Planner" as BoundedContextEventPlanner #line.dashed{
+    Package "Customer Subdomain" #LavenderBlush{
+        ENTITY(Customer) <<Aggregate>>{
+            firstName: String
+            lastName: String
+            dob: Date
+            email: String
+            phone: String
+            customerType: CustomerType
+        }
+
+        VO(CustomerIdentifier){
+            customerId: UUID
+        }
+
+        VO(Address){
+            streetAddress: String
+            city: String
+            province: String
+            country: String
+            postalCode: String
+        }
+
+        VO(PhoneNumber){
+            number: String
+            type: PhoneType
+        }
+
+        enum CustomerType <<Enumeration>>{
+            CUSTOMER, PERFORMER
+        }
+
+        enum PhoneType <<Enumeration>>{
+            HOME, WORK, MOBILE
+        }
+
+        Customer "1" o--> "1" CustomerIdentifier
+        Customer "1" o--> "1" Address
+        Customer "1" o--> "..*" PhoneNumber
+        PhoneNumber "1" *--> "1" PhoneType
+        Customer "1" *--> "1" CustomerType
+    }
+
+    Package "Event Management Subdomain" #LightCyan {
+        ENTITY(Event) <<Aggregate Root>>{
+            startsAt: DateTime
+            endsAt: DateTime
+            performers: Customer
+            venue: Venue
+            tickets: Ticket
+        }
+
+        VO(EventIdentifier){
+            eventId: UUID
+        }
+
+        Event "1" *--> "1" EventIdentifier
+        Event "1" *--> "..*" CustomerIdentifier
+    }
+
+    Package "Venue Management Subdomain" #Linen {
+        ENTITY(Venue) {
+            location: VenueAddress
+            venueName: String
+        }
+
+        VO(VenueIdentifier) {
+            venueId: UUID
+        }
+
+        VO(Address){
+            streetAddress: String
+            city: String
+            province: String
+            country: String
+            postalCode: String
+        }
+
+        Venue "1" o--> "1" Address
+        Venue "1" *--> "1" VenueIdentifier
+    }
+
+    Package "Ticketing Subdomain" #LightGreen {
+        ENTITY(Ticket) {
+            purchaseTime: DateTime
+            linkedEvent: Event
+            ticketOwner: User
+        }
+
+        VO(TicketIdentifier) {
+            ticketId: UUID
+        }
+
+        Ticket "1" *--> "1" TicketIdentifier
+    }
+
+    Package "Reservation Subdomain" #HoneyDew {
+        ENTITY(Reservation) {
+            startTime: DateTime
+            endTime: DateTime
+        }
+
+        VO(ReservationIdentifier) {
+            reservationId: UUID
+        }
+
+        Reservation *--> ReservationIdentifier
+    }
+
+    Package "Payment Subdomain" #LightCoral {
+        VO(Purchasable) {
+            price: Double
+        }
+
+        ENTITY(Transaction) {
+            purchaseCompleteTime: DateTime
+        }
+
+        VO(TransactionIdentifier) {
+            transactionId: UUID
+        }
+
+        enum TransactionPurpose <<Enumeration>>{
+            VENUE, TICKET
+        }
+
+        enum PaymentMethod <<Enumeration>> {
+            ETRANSFER, PAYPAL, CC, CASH
+        }
+
+        Transaction "1" *--> "1" TransactionIdentifier
+        Transaction "1" *--> "1" TransactionPurpose
+        Transaction "1" *--> "1" PaymentMethod
+        Purchasable "..*" *-> "1" Transaction
+    }
+
+    Customer --> TicketIdentifier
+    Customer --> EventIdentifier
+    Event --> VenueIdentifier
+    Event --> TicketIdentifier
+
+    Reservation --> EventIdentifier
+    Reservation --> VenueIdentifier
+
+    Purchasable *--> TicketIdentifier
+    Purchasable *--> VenueIdentifier
+
+    TransactionIdentifier o--> CustomerIdentifier
+}
+
+
+
+@enduml
