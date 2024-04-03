@@ -1,1 +1,10 @@
 INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (1, 'ticket1', '2020-01-01', true, 'user1');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (2, 'ticket2', '2020-01-02', true, 'user2');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (3, 'ticket3', '2020-01-03', true, 'user3');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (4, 'ticket4', '2020-01-04', true, 'user4');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (5, 'ticket5', '2020-01-05', true, 'user5');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (6, 'ticket6', '2020-01-06', true, 'user6');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (7, 'ticket7', '2020-01-07', true, 'user7');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (8, 'ticket8', '2020-01-08', true, 'user8');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (9, 'ticket9', '2020-01-09', true, 'user9');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (10, 'ticket10', '2020-01-10', true, 'user10');
