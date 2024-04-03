@@ -38,7 +38,7 @@ spring:
   datasource:
     hikari:
       initialization-fail-timeout: 60000
-    url: jdbc:mysql://mysql_vs/tickets-db
+    url: jdbc:mysql://mysql_vs/venues-db
     username: user
     password: pwd
 
