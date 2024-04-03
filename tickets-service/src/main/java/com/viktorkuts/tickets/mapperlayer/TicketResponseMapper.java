@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TicketResponseMapper {
-    @Mapping(source = "java(ticket.getTicketIdentifier().getTicketId())", target = "ticketId")
+    @Mapping(expression = "java(ticket.getTicketIdentifier().getTicketId())", target = "ticketId")
     TicketResponseModel entityToModel(Ticket ticket);
     List<TicketResponseModel> entitiesToModels(List<Ticket> tickets);
 }

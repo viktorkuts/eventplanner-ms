@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface VenueResponseMapper {
-    @Mapping(source = "java(venue.getVenueIdentifier().getVenueId())", target = "venueId")
+    @Mapping(expression = "java(venue.getVenueIdentifier().getVenueId())", target = "venueId")
     VenueResponseModel entityToModel(Venue venue);
     List<VenueResponseModel> entitiesToModels(List<Venue> venues);
 }
