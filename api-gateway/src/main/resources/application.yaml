@@ -1,0 +1,48 @@
+server:
+  error:
+    include-message: always
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.viktorkuts: DEBUG
+
+app:
+  customers-service:
+    host: localhost
+    port: 7001
+  tickets-service:
+    host: localhost
+    port: 7002
+  venues-service:
+    host: localhost
+    port: 7003
+  events-service:
+    host: localhost
+    port: 7004
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  customers-service:
+    host: customers-service
+    port: 8080
+  tickets-service:
+    host: tickets-service
+    port: 8080
+  venues-service:
+    host: venues-service
+    port: 8080
+  events-service:
+    host: events-service
+    port: 8080
+
+server:
+  port: 8080

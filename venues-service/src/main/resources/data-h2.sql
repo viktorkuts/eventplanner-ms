@@ -1,0 +1,1 @@
+INSERT INTO venues (venueid, venuename, availablestart, availableend, maxblockallocation, capacity, streetaddress, city, province, country, postalcode) VALUES ('bcec20dd-939f-4873-8053-7102621f4344', 'Da Venue',  '2020-01-01T19:00:00.000+00:00', '2020-01-01T22:00:00.000+00:00', 3, 100, '123 Main St', 'Toronto', 'ON', 'Canada', 'M1M 1M1');
