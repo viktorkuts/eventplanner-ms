@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS venues;
 CREATE TABLE venues (
                          id INT AUTO_INCREMENT NOT NULL,
                          venueid VARCHAR(40),
+                         venuename VARCHAR(128),
                          availablestart DATE,
                          availableend DATE,
                          maxblockallocation INTEGER,

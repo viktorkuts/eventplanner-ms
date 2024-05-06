@@ -26,15 +26,23 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
-
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         auto-quote-keyword: true
-
+    defer-datasource-initialization: true
+  sql:
+    init:
+      platform: h2
+      mode: always
+server:
+  port: 7003
 ---
 
 spring:
+  config:
+    activate:
+      on-profile: docker
   datasource:
     hikari:
       initialization-fail-timeout: 60000
@@ -45,10 +53,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    config:
-      activate:
-        on-profile: docker
   sql:
     init:
       platform: mysql
       mode: always
+server:
+  port: 8080

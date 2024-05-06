@@ -1,4 +1,4 @@
-package com.viktorkuts.tickets.utils;
+package com.viktorkuts.events.utils;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

@@ -2,6 +2,7 @@ package com.viktorkuts.venues.utils;
 
 import com.viktorkuts.venues.utils.exceptions.InUseException;
 import com.viktorkuts.venues.utils.exceptions.InvalidPostalCodeException;
+import com.viktorkuts.venues.utils.exceptions.InvalidTimeAllocationException;
 import com.viktorkuts.venues.utils.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,11 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(InvalidPostalCodeException.class)
     public HttpErrorInfo handleInvalidPostalCodeException(InvalidPostalCodeException ex, WebRequest request) {
         return createHttpErrorInfo(HttpStatus.UNPROCESSABLE_ENTITY, request, ex);
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidTimeAllocationException.class)
+    public HttpErrorInfo handleInvalidTimeAllocationException(InvalidTimeAllocationException ex, WebRequest request){
+        return createHttpErrorInfo(HttpStatus.BAD_REQUEST, request, ex);
     }
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)

@@ -7,16 +7,15 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Embeddable
+@Data
 @NoArgsConstructor
-@Getter
 public class PhoneNumber {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private PhoneType type;
+	private PhoneType type = PhoneType.UNCATEGORIZED;
 
 	@Column(name = "number")
 	private String number;

@@ -3,15 +3,20 @@ package com.viktorkuts.customers.presentationlayer;
 import com.viktorkuts.customers.logiclayer.CustomerServiceImpl;
 import com.viktorkuts.customers.presentationlayer.models.CustomerRequestModel;
 import com.viktorkuts.customers.presentationlayer.models.CustomerResponseModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
+import java.io.BufferedReader;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("customer")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
     private CustomerServiceImpl customerService;
 

@@ -1,5 +1,7 @@
+DROP TABLE customers IF EXISTS CASCADE;
+DROP TABLE customer_phonenumbers IF EXISTS CASCADE;
 CREATE TABLE IF NOT EXISTS customers (
-                           id				INTEGER AUTO_INCREMENT PRIMARY KEY,
+                           id				INT NOT NULL AUTO_INCREMENT,
                            customerid		VARCHAR(50),
                            customertype    VARCHAR(50) DEFAULT 'CUSTOMER',
                            firstname		VARCHAR(50),
@@ -9,11 +11,12 @@ CREATE TABLE IF NOT EXISTS customers (
                            city			VARCHAR(50),
                            province		VARCHAR(50),
                            country			VARCHAR(50),
-                           postalcode		VARCHAR(9)
+                           postalcode		VARCHAR(9),
+                           PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS customer_phonenumbers(
                                       custinternalid	INTEGER,
-                                      type			VARCHAR(50),
+                                      type			VARCHAR(50) DEFAULT 'HOME',
                                       number			VARCHAR(50)
 );

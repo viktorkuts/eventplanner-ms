@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class CustomerRequestModel {
     private CustomerType customerType;
     private String firstName;

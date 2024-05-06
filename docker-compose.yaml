@@ -37,12 +37,14 @@ services:
         condition: service_healthy
   events-service:
     build: events-service
-    hostname: venues-service
+    hostname: events-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      pg_es:
-        condition: service_healthy
+      - mongo_es
+      - customers-service
+      - tickets-service
+      - venues-service
   pg_cs:
     image: postgres:latest
     environment:
@@ -57,20 +59,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-  pg_es:
-    image: postgres:latest
+  mongo_es:
+    image: mongo:latest
     environment:
-      - POSTGRES_USER=user
-      - PGUSER=user
-      - POSTGRES_PASSWORD=pwd
-      - POSTGRES_DB=events-db
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pwd
     ports:
-      - "5433:5432"
-    healthcheck:
-      test: "pg_isready -h pg_es"
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      - "27017:27017"
+
   mysql_ts:
     image: mysql:8
     ports:
@@ -134,7 +130,6 @@ services:
       - "9000:80"
     depends_on:
       - pg_cs
-      - pg_es
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpadmin
@@ -146,3 +141,12 @@ services:
       - "5013:80"
     environment:
       - PMA_ARBITRARY=1
+  mongoadmin:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo_es
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=user
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pwd

@@ -1,4 +1,4 @@
-INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (1, 'ticket1', '2020-01-01', true, 'user1');
+INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (1, 'b145e3f9-738d-4fda-a60c-c6a4c91a183c', '2020-01-01', true, '6d7e2586-d3e1-4153-9666-bb17ed4ca50e');
 INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (2, 'ticket2', '2020-01-02', true, 'user2');
 INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (3, 'ticket3', '2020-01-03', true, 'user3');
 INSERT INTO tickets(id, ticketid, purchasetime, validated, userid) VALUES (4, 'ticket4', '2020-01-04', true, 'user4');

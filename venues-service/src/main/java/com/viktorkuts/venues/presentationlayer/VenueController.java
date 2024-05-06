@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("venues")
+@RequestMapping("/api/v1/venues")
 public class VenueController {
     private VenueService venueService;
 
@@ -25,7 +25,7 @@ public class VenueController {
     }
 
     @GetMapping(value = "{venueId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VenueResponseModel> getVenue(String venueId) {
+    public ResponseEntity<VenueResponseModel> getVenue(@PathVariable String venueId) {
         return ResponseEntity.ok(venueService.getVenue(venueId));
     }
 

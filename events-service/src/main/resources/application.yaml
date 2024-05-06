@@ -1,0 +1,76 @@
+server:
+  error:
+    include-message: always
+logging:
+  level:
+    root: INFO
+    com.viktorkuts: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  data:
+    mongodb:
+      username: user
+      password: pwd
+      host: localhost
+      port: 27017
+      database: events-db
+      authentication-database: admin
+      auto-index-creation: true
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
+
+app:
+  customers-service:
+    host: localhost
+    port: 7001
+  tickets-service:
+    host: localhost
+    port: 7002
+  venues-service:
+    host: localhost
+    port: 7003
+
+server:
+  port: 7004
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 5.0.5
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  data:
+    mongodb:
+      host: mongo_es
+      username: user
+      password: pwd
+      port: 27017
+      database: events-db
+      authentication-database: admin
+      auto-index-creation: true
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
+
+app:
+  customers-service:
+    host: customers-service
+    port: 8080
+  tickets-service:
+    host: tickets-service
+    port: 8080
+  venues-service:
+    host: venues-service
+    port: 8080
+
+server:
+  port: 8080

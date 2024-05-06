@@ -19,6 +19,6 @@ CREATE TABLE customers (
 
 CREATE TABLE IF NOT EXISTS customer_phonenumbers(
 	custinternalid	INTEGER,
-	type			VARCHAR(50),
+	type			VARCHAR(50) DEFAULT 'HOME',
 	number			VARCHAR(50)
 );

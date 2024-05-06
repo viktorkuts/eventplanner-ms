@@ -10,12 +10,14 @@ import com.viktorkuts.customers.presentationlayer.models.CustomerResponseModel;
 import com.viktorkuts.customers.utils.exceptions.InUseException;
 import com.viktorkuts.customers.utils.exceptions.InvalidPostalCodeException;
 import com.viktorkuts.customers.utils.exceptions.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     private CustomerResponseMapper customerResponseMapper;
@@ -54,6 +56,10 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponseModel addCustomer(CustomerRequestModel requestModel) {
         Customer newCustomer = customerRequestMapper.modelToEntity(requestModel, new CustomerIdentifier());
         String postal = newCustomer.getAddress().getPostalcode();
+        log.debug("HELLO!");
+        log.debug(requestModel.toString());
+        System.out.println("HELLO");
+        System.out.println(requestModel.toString());
         validatePostalCode(postal);
         customerRepository.save(newCustomer);
         return customerResponseMapper.entityToModel(customerRepository.save(newCustomer));

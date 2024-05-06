@@ -36,6 +36,8 @@ spring:
     init:
       platform: h2
       mode: always
+server:
+  port: 7001
 
 ---
 
@@ -56,3 +58,6 @@ spring:
     init:
       platform: psql
       mode: always
+
+server:
+  port: 8080

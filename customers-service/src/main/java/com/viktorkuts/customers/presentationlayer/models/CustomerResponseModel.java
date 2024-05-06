@@ -8,6 +8,7 @@ import com.viktorkuts.customers.datalayer.PhoneNumber;
 
 import lombok.*;
 
+@Data
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

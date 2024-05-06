@@ -80,6 +80,7 @@ public class VenueServiceImpl implements VenueService {
             throw new NotFoundException("Unknown venueId:" + venueId);
         }
         Venue updatedVenue = venueRequestMapper.modelToEntity(venueRequestModel, foundVenue.getVenueIdentifier());
+        updatedVenue.setId(foundVenue.getId());
         String postal = updatedVenue.getAddress().getPostalcode();
         validatePostalCode(postal);
         validateTimeAlloc(updatedVenue.getAvailableStart(), updatedVenue.getAvailableEnd(), updatedVenue.getMaxBlockAllocation());
