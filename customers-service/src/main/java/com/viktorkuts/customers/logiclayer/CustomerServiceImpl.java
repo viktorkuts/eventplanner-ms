@@ -55,7 +55,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponseModel addCustomer(CustomerRequestModel requestModel) {
         Customer newCustomer = customerRequestMapper.modelToEntity(requestModel, new CustomerIdentifier());
-        String postal = newCustomer.getAddress().getPostalcode();
+        String postal = "11111";
+        if(newCustomer.getAddress() != null){
+            postal = newCustomer.getAddress().getPostalcode();
+        }
         log.debug("HELLO!");
         log.debug(requestModel.toString());
         System.out.println("HELLO");

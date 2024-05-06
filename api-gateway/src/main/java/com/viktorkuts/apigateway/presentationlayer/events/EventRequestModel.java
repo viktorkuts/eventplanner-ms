@@ -1,6 +1,6 @@
-package com.viktorkuts.events.presentationlayer.models;
+package com.viktorkuts.apigateway.presentationlayer.events;
 
-import com.viktorkuts.events.domainclientlayer.tickets.TicketModel;
+import com.viktorkuts.apigateway.presentationlayer.tickets.TicketResponseModel;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,5 +16,5 @@ public class EventRequestModel {
     LocalDateTime endsAt;
     String performerId;
     String venueId;
-    List<TicketModel> tickets;
+    List<TicketResponseModel> tickets;
 }

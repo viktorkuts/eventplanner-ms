@@ -150,3 +150,4 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo_es
       - ME_CONFIG_MONGODB_ADMINUSERNAME=user
       - ME_CONFIG_MONGODB_ADMINPASSWORD=pwd
+      - ME_CONFIG_MONGODB_URL=mongodb://user:pwd@mongo_es:27017

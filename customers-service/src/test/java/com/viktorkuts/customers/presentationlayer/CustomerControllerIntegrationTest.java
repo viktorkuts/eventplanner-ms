@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {"spring.datasource.url=jdbc:h2:mem:customers-db"})
 @Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class CustomerControllerIntegrationTest {
-    private final String BASE_URL = "/customer";
+    private final String BASE_URL = "/api/v1/customers";
     private final String VALID_CUSTOMER_ID = "6d7e2586-d3e1-4153-9666-bb17ed4ca50e";
     private final String VALID_NUMBERED_POSTAL_CODE = "18273";
     private final String VALID_STRING_POSTAL_CODE = "J2H 1H7";

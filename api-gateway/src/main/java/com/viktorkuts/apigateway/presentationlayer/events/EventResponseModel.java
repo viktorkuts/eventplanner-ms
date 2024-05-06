@@ -1,8 +1,10 @@
-package com.viktorkuts.events.presentationlayer.models;
+package com.viktorkuts.apigateway.presentationlayer.events;
 
-import com.viktorkuts.events.domainclientlayer.tickets.TicketModel;
-import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
+import com.viktorkuts.apigateway.presentationlayer.tickets.TicketResponseModel;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class EventResponseModel extends RepresentationModel<EventResponseModel> {
+public class EventResponseModel {
     String eventId;
     LocalDateTime startsAt;
     LocalDateTime endsAt;
@@ -19,5 +21,5 @@ public class EventResponseModel extends RepresentationModel<EventResponseModel> 
     String performerLastName;
     String venueId;
     String venueName;
-    List<TicketModel> tickets;
+    List<TicketResponseModel> tickets;
 }
